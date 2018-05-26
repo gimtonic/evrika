@@ -11,9 +11,8 @@ int main(int argc, char **argv)
     FILE *f;
    
    // Переменная, в которую поочередно будут помещаться считываемые строки
-    char str[500], functionName[100] ;
+    char str[500],count[500][500], functionName[100][100] ;
 
-   char *name[100];
    //Указатель, в который будет помещен адрес массива, в который считана 
    // строка,или NULL если достигнут коней файла или произошла ошибка
     char *line;   
@@ -22,14 +21,7 @@ int main(int argc, char **argv)
     int err,err2,regerr,regerr2;
     regmatch_t pm;
 
-    int a,b,j,n,count;
-   n=0;
-    err = regcomp (&preg, FIND_LINE, REG_EXTENDED);
-  //  if (err != 0) {
-  //      char buff[512];
-  //      regerror(err, &preg, buff, sizeof(buff));
-  //      printf("%s",buff);
-  //  }
+    int a,b,n,i,j,k,m,l;
 	
     if (argc < 2) {
         printf ("%s%s","Используйте команду \n\n","./canalyze <имя файла>\n\n");
@@ -49,12 +41,15 @@ int main(int argc, char **argv)
    } else {
 	
 	printf("Detected functions / call times:\n");
-	
+	n=0;
+	k=0;
 	//Чтение (построчно) данных из файла в бесконечном цикле
         while (1) {
 
 	// Чтение одной строки  из файла
         line = fgets (str,sizeof(str),f);
+
+	
         //Проверка на конец файла или ошибку чтения
         if (line == NULL)
         {
@@ -78,10 +73,15 @@ int main(int argc, char **argv)
       //Если файл не закончился, и не было ошибки чтения 
       //выводим считанную строку  на экран
 
+	
+    err = regcomp (&preg, FIND_LINE, REG_EXTENDED);
+    if (err != 0) {
+        char buff[512];
+        regerror(err, &preg, buff, sizeof(buff));
+        printf("%s",buff);
+    }
 
     regerr = regexec (&preg, str, 0, &pm, 0);
-    j=0;
-    n=0;
     if (regerr == 0) { 
 	
 	for(int i=0; i<= sizeof(str); i++) {
@@ -98,28 +98,60 @@ int main(int argc, char **argv)
                 //printf("%d\n",b);
                 break;
                 }
-        }	
+        }
+	j=0;	
 	for(int i=0; i<=sizeof(str); i++) {
  		
 		if ((i>a)&&(i<b)) {
          
-		functionName[j] = str[i];
+		functionName[n][j] = str[i];
 		j++;
        		}
 	}
-}else {
-	//printf("%s",str);
-        printf("23%s\n",functionName);
+	
+}
+
+l=0;
+for (m=0;m<n;m++) {      
+if(strstr(str,functionName[m]) != NULL) {
+
+//printf("m=%d",m);
+//printf("n=%d",n);
+printf("func(m)=%s",functionName[m]);
+printf("func(n)=%s\n",functionName[n]);
+
+if(functionName[m] == functionName[n])
+printf("gopa");
+//if(functionName[n] = functionName[m]) {
+//printf("n=%dm=%d",n,m);
+//}
+//count[m]=count[m]+1;
+//print("%d",count);
+}
+}
+//printf("%d",l);
+n++;
+
+
+
 
 }
+
+//regfree(&preg);
+//for(int i=0; i<=sizeof(name);i++)
+		
+//	printf("%s",name[0]);
+//       printf("%s\n",functionName[]);
+
+
 //for(int i=0;i<3;i++)
 //printf("%s",functionName);
+
+
 }
 
-}
 
-
-//printf("%d",n);
+//printf("%s",str);
 //for(int i=0;i<=n;i++) 
 //printf("%s",name[i]);
 
@@ -129,11 +161,7 @@ int main(int argc, char **argv)
 //	}
 //	printf("%d",count);
 //}
-while(1) {
-//line = fgets (str,sizeof(str),f);
-printf("gopa");
-return 0;
-}
+
 
 
 	
