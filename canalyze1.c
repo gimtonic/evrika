@@ -43,6 +43,7 @@ int main(int argc, char **argv)
 	printf("Detected functions / call times:\n");
 	n=0;
 	k=0;
+	l=0;
 	//Чтение (построчно) данных из файла в бесконечном цикле
         while (1) {
 
@@ -111,31 +112,38 @@ int main(int argc, char **argv)
 	
 }
 
-l=0;
+//}
 for (m=0;m<n;m++) {      
 if(strstr(str,functionName[m]) != NULL) {
-
-//printf("m=%d",m);
-//printf("n=%d",n);
+//f=0;
+//}
+//}
+//if(f == 0) {
+printf("m=%d",m);
+printf("n=%d",n);
 printf("func(m)=%s",functionName[m]);
 printf("func(n)=%s\n",functionName[n]);
+}
+}
 
-if(functionName[m] == functionName[n])
-printf("gopa");
+//if(strstr(str,functionName[n]) != NULL)
+
+//printf("gopa");
 //if(functionName[n] = functionName[m]) {
 //printf("n=%dm=%d",n,m);
 //}
 //count[m]=count[m]+1;
 //print("%d",count);
-}
-}
-//printf("%d",l);
+//}
+//}
+//printf("%s",functionName[n]);
 n++;
+//l++;
+//}
 
 
 
 
-}
 
 //regfree(&preg);
 //for(int i=0; i<=sizeof(name);i++)
@@ -150,7 +158,7 @@ n++;
 
 }
 
-
+}
 //printf("%s",str);
 //for(int i=0;i<=n;i++) 
 //printf("%s",name[i]);
